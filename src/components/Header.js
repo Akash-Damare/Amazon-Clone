@@ -10,7 +10,7 @@ function Header() {
     <header>
       {/* Top Header section */}
       <div className="flex items-center bg-amazon_blue p-1 flex-grow py-2">
-        <div className="m-2 flex items-center flex-grow sm:flex-grow-0">
+        <div className="m-2 pt-2 flex items-center flex-grow sm:flex-grow-0">
           <Image
             src="https://links.papareact.com/f90"
             width={150}
