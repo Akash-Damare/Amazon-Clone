@@ -9,6 +9,7 @@ function ProductFeed({ products }) {
           return (
             <Product
               key={id}
+              id={id}
               image={image}
               title={title}
               price={price}
@@ -26,10 +27,11 @@ function ProductFeed({ products }) {
       <div className="md:col-span-2">
         {products
           .slice(4, 5)
-          .map(({ id, image, title, price, description, category }) => {
+          .map(({ id, image, title, price, description, category }, i) => {
             return (
               <Product
                 key={id}
+                id={id}
                 image={image}
                 title={title}
                 price={price}
@@ -41,10 +43,11 @@ function ProductFeed({ products }) {
       </div>
       {products
         .slice(5, products.length)
-        .map(({ id, image, title, price, description, category }) => {
+        .map(({ id, image, title, price, description, category }, i) => {
           return (
             <Product
               key={id}
+              id={id}
               image={image}
               title={title}
               price={price}

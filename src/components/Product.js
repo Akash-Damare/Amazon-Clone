@@ -1,6 +1,8 @@
 import { StarIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "../slices/basketSlice";
 
 const MAX_RATING = 5;
 const MIN_RATING = 1;
@@ -9,8 +11,9 @@ function Product({ id, image, title, price, description, category }) {
   const [rating] = useState(
     Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
   );
+  const dispatch = useDispatch();
 
-  const [hasPrime] = useState(Math.random > 0.1);
+  const [hasPrime] = useState(Math.random() > 0.1);
 
   function japnese(x) {
     return x.toLocaleString("ja-JP", { style: "currency", currency: "JPY" });
@@ -18,6 +21,23 @@ function Product({ id, image, title, price, description, category }) {
   function indian(x) {
     return x.toLocaleString("en-IN", { style: "currency", currency: "INR" });
   }
+
+  const addItemToBasket = () => {
+    console.log(id);
+    const product = {
+      id,
+      image,
+      title,
+      price,
+      description,
+      category,
+      hasPrime,
+      rating,
+    };
+
+    dispatch(addToBasket(product));
+  };
+
   return (
     <div className="relative flex flex-col m-5 bg-white z-10 p-10">
       <p className="absolute top-2 right-2 text-xs italic text-gray-400">
@@ -50,7 +70,10 @@ function Product({ id, image, title, price, description, category }) {
         </div>
       )}
 
-      <button className="button">Add to Basket</button>
+      <button onClick={addItemToBasket} className="button">
+        Add to Basket
+        {console.log(hasPrime)}
+      </button>
     </div>
   );
 }
