@@ -26,13 +26,11 @@ function CheckoutProduct({
       hasPrime,
       rating,
     };
-    console.log(id);
 
     dispatch(addToBasket(product));
   };
 
   const removeItemFromBasket = () => {
-    console.log(id);
     dispatch(removeFromBasket({ id }));
   };
 

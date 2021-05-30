@@ -23,7 +23,6 @@ function Product({ id, image, title, price, description, category }) {
   }
 
   const addItemToBasket = () => {
-    console.log(id);
     const product = {
       id,
       image,
@@ -72,7 +71,6 @@ function Product({ id, image, title, price, description, category }) {
 
       <button onClick={addItemToBasket} className="button">
         Add to Basket
-        {console.log(hasPrime)}
       </button>
     </div>
   );

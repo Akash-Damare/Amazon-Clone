@@ -4,12 +4,29 @@ import Header from "../components/Header";
 import { selectItems, selectPrice } from "../slices/basketSlice";
 import CheckoutProduct from "../components/CheckoutProduct";
 import { useSession } from "next-auth/client";
-import { IdentificationIcon } from "@heroicons/react/outline";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function CheckOut() {
   const items = useSelector(selectItems);
   const [session] = useSession();
   const total = useSelector(selectPrice);
+
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+
+    // call the backend function to create checkout session
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      email: session.user.email,
+      items: items,
+    });
+
+    //Redirect customer/user to stripce checkout site
+    const result = stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+  };
 
   function indian(x) {
     return x.toLocaleString("en-IN", { style: "currency", currency: "INR" });
@@ -59,6 +76,9 @@ function CheckOut() {
               </h1>
 
               <button
+                role="link"
+                disabled={!session}
+                onClick={createCheckoutSession}
                 className={`button mt-2 ${
                   !session &&
                   `from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed`
