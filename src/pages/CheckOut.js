@@ -23,9 +23,13 @@ function CheckOut() {
     });
 
     //Redirect customer/user to stripce checkout site
-    const result = stripe.redirectToCheckout({
+    const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
+
+    if (result.error) {
+      alert(result.error.message);
+    }
   };
 
   function indian(x) {
